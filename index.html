@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Find My Os</title>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Euclid:wght@400;700&display=swap');
+
+      body {
+        margin: 0;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+        user-select: none;
+      }
+
+      .logo {
+        background-image: url('https://images.vexels.com/content/141382/preview/unix-logo-002b86.png');
+        background-size: cover;
+        width: 256px;
+        height: 256px;
+        opacity: 0;
+        animation: show 0.9s forwards;
+        animation-delay: 2s;
+      }
+
+      @keyframes show {
+        from {
+          opacity: 0;
+          transform: scale(0.3) skewY(65deg) skewX(-25deg);
+          filter: blur(35px);
+        }
+
+        to {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+
+      @keyframes slide {
+        from {
+          transform: translateY(0px);
+        }
+
+        to {
+          transform: translateY(-155px);
+        }
+      }
+
+      @keyframes slide1 {
+        from {
+          transform: translateY(255px);
+        }
+
+        to {
+          transform: translateY(155px);
+          opacity: 1;
+        }
+      }
+
+      .text {
+        position: absolute;
+        font-family: 'Euclid', sans-serif;
+        font-size: 35px;
+        animation: slide 0.9s forwards;
+        animation-delay: 2s;
+      }
+
+      .option {
+        position: absolute;
+        font-family: 'Euclid', sans-serif;
+        font-size: 35px;
+        animation: slide1 0.9s forwards;
+        transform: translateY(255px);
+        opacity: 0;
+        animation-delay: 2.9s;
+      }
+    </style>
+  </head>
+  <body>
+    <div class='logo' id='image'></div>
+    <p class='text' id='os'>You're currently using...</p>
+    <p class='option' id='text'>Not detected</p>
+    <script>
+      function getOS() {
+        const userAgent = window.navigator.userAgent;
+        let os = ' ';
+        if (userAgent.indexOf('Win') !== -1) {
+          os = 'Windows';
+        } else if (userAgent.indexOf('Mac') !== -1) {
+          os = 'MacOS';
+        } else if (userAgent.indexOf('X11') !== -1) {
+          os = 'UNIX';
+        } else if (userAgent.indexOf('Linux') !== -1) {
+          os = 'Linux';
+        } else if (userAgent.indexOf('Android') !== -1) {
+          os = 'Android';
+        } else if (userAgent.indexOf('like Mac') !== -1) {
+          os = 'iOS';
+        }
+        return os;
+      }
+      const names = [{
+        os: 'Android',
+        img: 'https://cdn.iconscout.com/icon/free/png-256/free-android-logo-icon-download-in-svg-png-gif-file-formats--programming-langugae-language-pack-logos-icons-1175273.png?f=webp',
+        text: `Basic option! It's around 3.9 billion users of this os:)`
+      }, {
+        os: 'iOS',
+        img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/IOS_logo.svg/512px-IOS_logo.svg.png',
+        text: `Rich option! Not everyone has iOS:0`
+      }, {
+        os: 'Windows',
+        img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Windows_logo_-_2012.svg/768px-Windows_logo_-_2012.svg.png',
+        text: `Popular option! Windows is mostly for games:)`
+      }, {
+        os: 'MacOS',
+        img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/MacOS_logo.svg/1024px-MacOS_logo.svg.png',
+        text: `Great option! I'm using this os too:)`
+      }, {
+        os: 'Linux',
+        img: 'https://pngimg.com/d/linux_PNG48.png',
+        text: `Hard option! How do you even entered this website?:0`
+      }, {
+        os: 'UNIX',
+        img: 'https://images.vexels.com/content/141382/preview/unix-logo-002b86.png',
+        text: `Rare option! Is there any people using this os left?:0`
+      }, {
+        os: ' ',
+        img: 'https://i.pinimg.com/originals/1d/c8/d1/1dc8d1fccdbc206c71a4a8fe9cb15756.webp',
+        text: `Ooopsie. Take a rose of sympathy:(`
+      }];
+      const osname = getOS()
+      let img = names.find(entry => entry.os === osname);
+      const texts = img.text
+      img = img.img
+
+      function os() {
+        document.getElementById('os').innerText = `${osname}`;
+      }
+
+      function randomColor() {
+        function random() {
+          return Math.floor(Math.random() * 128 + 128);
+        }
+        const r = random().toString(16).padStart(2, '0');
+        const g = random().toString(16).padStart(2, '0');
+        const b = random().toString(16).padStart(2, '0');
+        return `#${r}${g}${b}`;
+      }
+      document.body.style.background = `linear-gradient(to right, ${randomColor()}, ${randomColor()})`
+      window.onload = function() {
+        const image = document.getElementById('image')
+        const option = document.getElementById('text')
+        option.innerText = texts
+        const size = Math.floor(65 - (texts.length * 1))
+        option.style.fontSize = `${size}px`
+        image.style.backgroundImage = `url('${img}')`
+        setTimeout(os, 2000);
+      }
+    </script>
+  </body>
+</html>
