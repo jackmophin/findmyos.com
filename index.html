@@ -16,6 +16,7 @@
         align-items: center;
         overflow: hidden;
         user-select: none;
+        white-space: pre;
       }
 
       .logo {
@@ -78,6 +79,7 @@
         transform: translateY(255px);
         opacity: 0;
         animation-delay: 2.9s;
+        white-space: pre;
       }
     </style>
   </head>
@@ -86,34 +88,36 @@
     <p class='text' id='os'>You're currently using...</p>
     <p class='option' id='text'>Not detected</p>
     <script>
-      function getOS() {
-        const userAgent = window.navigator.userAgent || window.navigator.vendor || window.opera;
-        let os = ' ';
-        if (/windows phone/i.test(userAgent)) {
-          os = 'WindowsPhone';
-        } else if (/android/i.test(userAgent)) {
-          os = 'Android';
-        } else if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
-          os = 'iOS';
-        } else if (/Macintosh/i.test(userAgent)) {
-          os = 'MacOS';
-        } else if (/Win/i.test(userAgent)) {
-          os = 'Windows';
-        } else if (/Linux/i.test(userAgent)) {
-          os = 'Linux';
-        } else if (/X11/i.test(userAgent)) {
-          os = 'UNIX';
-        }
-        return os;
-      }
+function getOS() {
+  const userAgent = window.navigator.userAgent || window.navigator.vendor || window.opera;
+  let os = ' ';
+
+  if (/windows phone/i.test(userAgent)) {
+    os = 'WindowsPhone';
+  } else if (/android/i.test(userAgent)) {
+    os = 'Android';
+  } else if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+    os = 'iOS';
+  } else if (/Macintosh/i.test(userAgent)) {
+    os = 'MacOS';
+  } else if (/Win/i.test(userAgent)) {
+    os = 'Windows';
+  } else if (/Linux/i.test(userAgent)) {
+    os = 'Linux';
+  } else if (/X11/i.test(userAgent)) {
+    os = 'UNIX';
+  }
+
+  return os;
+}
       const names = [{
         os: 'Android',
         img: 'https://cdn.iconscout.com/icon/free/png-256/free-android-logo-icon-download-in-svg-png-gif-file-formats--programming-langugae-language-pack-logos-icons-1175273.png?f=webp',
-        text: `Basic option! It's around 3.9 billion users of this os:)`
+        text: `Basic option! Everyone has it:)`
       }, {
         os: 'iOS',
         img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/IOS_logo.svg/512px-IOS_logo.svg.png',
-        text: `Rich option! Not everyone has iOS:0`
+        text: `Rich option! Not everyone has iOS:0   `
       }, {
         os: 'Windows',
         img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Windows_logo_-_2012.svg/768px-Windows_logo_-_2012.svg.png',
@@ -125,11 +129,11 @@
       }, {
         os: 'Linux',
         img: 'https://pngimg.com/d/linux_PNG48.png',
-        text: `Hard option! How do you even entered this website?:0`
+        text: `Hard option! I'm confused you're here!:0`
       }, {
         os: 'UNIX',
         img: 'https://images.vexels.com/content/141382/preview/unix-logo-002b86.png',
-        text: `Rare option! Is there any people using this os left?:0`
+        text: `Rare option! Aren't you old?:0 `
       }, {
         os: ' ',
         img: 'https://i.pinimg.com/originals/1d/c8/d1/1dc8d1fccdbc206c71a4a8fe9cb15756.webp',
@@ -150,7 +154,7 @@
 
       function randomColor() {
         function random() {
-          return Math.floor(Math.random() * 128 + 128);
+          return Math.floor(Math.random() * 118 + 138);
         }
         const r = random().toString(16).padStart(2, '0');
         const g = random().toString(16).padStart(2, '0');
@@ -162,7 +166,7 @@
         const image = document.getElementById('image')
         const option = document.getElementById('text')
         option.innerText = texts
-        const size = 60 - texts.length
+        const size = Math.floor(75 - (texts.length * 1.3))
         option.style.fontSize = `${size}px`
         image.style.backgroundImage = `url('${img}')`
         setTimeout(os, 2000);
